@@ -1,0 +1,9 @@
+node {
+  stage('SCM Checkout'){
+    github.com/santoshbasani/my-app1
+  }
+  stage('Compile-Package'){
+    sh 'mvn package'
+  }
+}
+    
