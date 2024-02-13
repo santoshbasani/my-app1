@@ -8,6 +8,13 @@ node {
     sh "${mvnHOME}/bin/mvn package"
   }
 
+  stage('Deploy to Tomcat'){
+    sshagent(['tomcat-dev']){
+       sh 'scp -o StrictHostKeyChecking=no target/*.war root@192.168.56.61:/opt/apache-tomcat-9.0.85/webapps'
+    }
+  }
+
+
   stage('SonarQube Analysis'){
        def mvnHOME = tool name: 'maven-3', type: 'maven'
        withSonarQubeEnv('sonar') {
